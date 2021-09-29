@@ -14,6 +14,10 @@ export class MovieListComponent implements OnInit {
   constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
+    this.getMovies();
+  }
+
+  getMovies() {
     this.moviesService.getMovies().subscribe(
       res => {
         this.movies = res
@@ -21,5 +25,17 @@ export class MovieListComponent implements OnInit {
       err => console.error(err)
     )
   }
+
+  deleteMovie(id: string){
+    this.moviesService.deleteMovie(id).subscribe(
+      res => {
+        console.log(res)
+        this.getMovies();
+      },
+      err => console.log(err)
+    )
+  }
+
+
 
 }
